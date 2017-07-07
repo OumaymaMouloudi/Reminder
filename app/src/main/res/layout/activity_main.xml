@@ -4,15 +4,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sqli.reminder.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.example.sqli.reminder.MainActivity"
+    android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:text="tu dois prendre ton médicament"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="#660963"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fixez le temps du reminder :"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:textColor="#942f91"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
+
+        <EditText
+            android:id="@+id/hTime"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="#ffffff"
+            android:numeric="integer"
+            android:gravity="center"
+            android:textColor="#540351"
+            android:text="22"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=":"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/mTime"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textColor="#540351"
+            android:numeric="integer"
+            android:background="#ffffff"
+            android:text="00"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fixez la fréquence du reminder :"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#942f91"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="reminder un jour sur : "
+            android:textColor="#540351"
+            android:paddingTop="5dp"
+            android:textSize="18dp"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:id="@+id/jFreq"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:numeric="integer"
+            android:background="#ffffff"
+            android:textColor="#540351"
+            android:text="3"/>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:backgroundTint="#f7c6f6"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:gravity="center"/>
+
+
 
 </LinearLayout>

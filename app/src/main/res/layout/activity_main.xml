@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.sqli.reminder.MainActivity"
+    tools:targetApi="11"
     android:weightSum="1">
 
     <TextView

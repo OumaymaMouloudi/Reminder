@@ -10,12 +10,14 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -29,10 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Calendar calendar = Calendar.getInstance() ;
     AlertDialog.Builder builder ;
     PendingIntent pendingIntent;
-
-
+    TextView status ;
     NotificationCompat.Builder mBuilder ;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         start.setOnClickListener(this);
         stop = (Button) findViewById(R.id.stop);
         stop.setOnClickListener(this);
+        status = (TextView) findViewById(R.id.status);
         hTime = (EditText) findViewById(R.id.hTime);
         mTime = (EditText) findViewById(R.id.mTime);
         jFreq = (EditText) findViewById(R.id.jFreq);
+
         alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //        Intent intent = new Intent(context, AlarmReceiver.class);
 //        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -61,10 +65,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 builder = new AlertDialog.Builder(this);
             }
 
+
             builder.setTitle("Debut du service");
             builder.setMessage("le rappel de médicaments sera effectué " +
                     "chaque " + jFreq.getText().toString() + " jour(s) à " + hTime.getText().toString() +
                     "h " + mTime.getText().toString() + "min").show();
+            start.setEnabled(false);
+            stop.setEnabled(true);
+
         }
         if(view.getId() == R.id.stop){
 
@@ -76,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             builder.setTitle("Arrêt du service").setMessage("Service arrêté").show();
             if(alarmMgr != null && pendingIntent != null)
                 alarmMgr.cancel(pendingIntent);
+            start.setEnabled(true);
+            stop.setEnabled(false);
 
 //            final AlertDialog a = builder.show();
 //            try{
@@ -93,23 +103,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.getNotificationId(), 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-//        long futureInMillis = SystemClock.elapsedRealtime() + delay;
-//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hTime.getText().toString()));
         calendar.set(Calendar.MINUTE, Integer.parseInt(mTime.getText().toString()));
 
-// setRepeating() lets you specify a precise custom interval--in this case,
-// 20 minutes.
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 60 * 24 * Integer.parseInt(jFreq.getText().toString()), pendingIntent);
-//)
+                1000 * 60 * 60 * 24 * Integer.parseInt(jFreq.getText().toString()) , pendingIntent);
+//60 * 24 * Integer.parseInt(jFreq.getText().toString())
     }
 
     private Notification getNotification(String content) {

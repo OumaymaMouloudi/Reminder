@@ -11,7 +11,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="144dp"
         android:text="tu dois prendre ton médicament"
         android:textSize="30dp"
         android:gravity="center"
@@ -137,6 +137,10 @@
         android:layout_marginRight="100dp"
         android:gravity="center"/>
 
-
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>
